@@ -24,6 +24,8 @@ public class Main {
                     public void actionPerformed(ActionEvent e) {
                         if (imageReprinter.copy()) {
                             trayManager.notifyInfo("Info", "コピーに成功しました");
+                        } else {
+                            trayManager.notifyError("Error", "コピーに失敗しました");
                         }
                     }
                 });
