@@ -1,3 +1,4 @@
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -11,13 +12,13 @@ import java.awt.event.ActionListener;
 public class Main {
     public static void main(String[] args) throws Exception {
         final ImageReprinter imageReprinter = new ImageReprinter();
-        final TrayManager trayManager = new TrayManager(
-                new ImageIcon("./resource/camera.png")
+        final TrayManager trayManager = new TrayManager(new ImageIcon(
+                ImageIO.read(Main.class.getResourceAsStream("camera.png")))
                         .getImage(), "ImageReprinter"
         );
 
         trayManager.registerTray();
-        trayManager.addMenuItem(new MenuItem("クリップボードの内容をウェイ"),
+        trayManager.addMenuItem(new MenuItem("クリップボードの画像URLを保存して絶対パスをコピー"),
                 new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
