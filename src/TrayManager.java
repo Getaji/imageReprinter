@@ -15,7 +15,7 @@ public final class TrayManager {
     private final PopupMenu popupMenu = new PopupMenu();
 
     public TrayManager(Image image, String toolTip) {
-        trayIcon = new TrayIcon(image);
+        trayIcon = new TrayIcon(image, toolTip);
 
         trayIcon.setPopupMenu(popupMenu);
     }
