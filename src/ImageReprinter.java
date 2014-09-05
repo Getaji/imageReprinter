@@ -9,7 +9,7 @@ import java.net.URL;
  */
 public final class ImageReprinter {
 
-    public static final String NULL_STR = "NULL";
+    public static final String NULL_STR = "$NULL$";
 
     private final Toolkit kit = Toolkit.getDefaultToolkit();
     private final Clipboard clip = kit.getSystemClipboard();
@@ -17,6 +17,10 @@ public final class ImageReprinter {
     public ImageReprinter() {
     }
 
+    /**
+     * クリップボードの文字列を取得。失敗した場合はスタックトレースを出力し{@link #NULL_STR}を返す
+     * @return クリップボードの文字列
+     */
     private String getClipboardText() {
         try {
             return (String) clip.getData(DataFlavor.stringFlavor);
@@ -29,6 +33,12 @@ public final class ImageReprinter {
         return NULL_STR;
     }
 
+    /**
+     * 指定したURLの画像を保存する
+     * @param imageStrUrl URL
+     * @return 保存したファイル
+     * @throws IOException 失敗
+     */
     private File copyImageToLocal(String imageStrUrl) throws IOException {
         HttpURLConnection con = null;
 
@@ -61,6 +71,11 @@ public final class ImageReprinter {
         return tempFile;
     }
 
+    /**
+     * クリップボードの画像URLから画像を保存し、保存したファイルの絶対パスをクリップボードにコピーします。
+     *
+     * @return 成功したか
+     */
     public boolean copy() {
         try {
             File file = copyImageToLocal(getClipboardText());
