@@ -56,4 +56,9 @@ public final class TrayManager {
         trayIcon.displayMessage(caption, text, TrayIcon.MessageType.INFO);
         return this;
     }
+
+    public TrayManager notifyError(String caption, String text) {
+        trayIcon.displayMessage(caption, text, TrayIcon.MessageType.ERROR);
+        return this;
+    }
 }
