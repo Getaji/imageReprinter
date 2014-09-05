@@ -1,5 +1,8 @@
 import java.awt.*;
-import java.awt.datatransfer.*;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.StringSelection;
+import java.awt.datatransfer.UnsupportedFlavorException;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -39,7 +42,8 @@ public final class ImageReprinter {
      * @return 保存したファイル
      * @throws IOException 失敗
      */
-    private File copyImageToLocal(String imageStrUrl) throws IOException {
+    private File copyImageToLocal(String imageStrUrl)
+            throws IOException {
         HttpURLConnection con = null;
 
         // https://pbs.twimg.com/media/BnXPzvmCEAAGHsj.png
@@ -74,20 +78,12 @@ public final class ImageReprinter {
     /**
      * クリップボードの画像URLから画像を保存し、保存したファイルの絶対パスをクリップボードにコピーします。
      *
-     * @return 成功したか
+     * @throws IOException
      */
-    public boolean copy() {
-        try {
-            File file = copyImageToLocal(getClipboardText());
+    public void copy() throws IOException {
+        File file = copyImageToLocal(getClipboardText());
 
-            StringSelection ss = new StringSelection(file.getAbsolutePath());
-            clip.setContents(ss, ss);
-
-            return true;
-        } catch (IOException e) {
-            e.printStackTrace();
-
-            return false;
-        }
+        StringSelection ss = new StringSelection(file.getAbsolutePath());
+        clip.setContents(ss, ss);
     }
 }

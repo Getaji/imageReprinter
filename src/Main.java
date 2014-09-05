@@ -3,6 +3,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.net.MalformedURLException;
 
 /**
  * メインクラス
@@ -22,10 +24,15 @@ public class Main {
                 new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        if (imageReprinter.copy()) {
-                            trayManager.notifyInfo("Info", "コピーに成功しました");
-                        } else {
-                            trayManager.notifyError("Error", "コピーに失敗しました");
+                        try {
+                            imageReprinter.copy();
+                            trayManager.notifyInfo("INFO", "コピーに成功しました。");
+                        } catch (IOException exc) {
+                            if (exc instanceof MalformedURLException) {
+                                trayManager.notifyError("ERROR", "URLが不正です。");
+                            } else {
+                                trayManager.notifyError("ERROR", "画像保存に失敗しました。");
+                            }
                         }
                     }
                 });
