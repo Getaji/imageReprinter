@@ -62,7 +62,7 @@ public final class ImageReprinter {
         // 接続
         con.connect();
 
-        File tempFile = File.createTempFile("ImageReprintTemp", ".jpg");
+        File tempFile = Main.getMySettings().getSaveTargetFile(imageStrUrl);
         try (InputStream is = new BufferedInputStream(con.getInputStream()); OutputStream os = new BufferedOutputStream(new FileOutputStream(tempFile))) {
 
             byte[] fbytes = new byte[1024];
